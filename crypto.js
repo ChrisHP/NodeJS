@@ -1,4 +1,4 @@
 function randomID(){
     console.log(crypto.randomUUID());
 }
-randomID();
+module.exports= randomID;
