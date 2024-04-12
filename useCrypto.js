@@ -1,2 +1,3 @@
-const randomID= require("./crypto.js");
+import randomID from "./crypto.js";
+
 randomID();
