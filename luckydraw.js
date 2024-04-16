@@ -10,5 +10,4 @@ function luckyDraw(player) {
     });
   });
 }
-
-luckyDraw("Joe").then((res)=>console.log(res)).then(()=>luckyDraw("Caroline")).then((res)=>console.log(res)).then(()=>luckyDraw("Sabrina")).then((res)=>console.log(res)).catch(error=>console.error(error.message));
+luckyDraw("Joe").then((res)=>console.log(res),error=>console.error(error.message)).then(()=>luckyDraw("Caroline")).then((res)=>console.log(res),error=>console.error(error.message)).then(()=>luckyDraw("Sabrina")).then((res)=>console.log(res),error=>console.error(error.message));
