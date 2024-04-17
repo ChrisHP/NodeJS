@@ -1,6 +1,9 @@
+const names=["Tina","Jorge","Julien"];
+
 function luckyDraw(player) {
   return new Promise((resolve, reject) => {
     const win = Boolean(Math.round(Math.random()));
+
     process.nextTick(() => {
       if (win) {
         resolve(`${player} won a prize in the draw!`);
@@ -11,4 +14,9 @@ function luckyDraw(player) {
   });
 }
 
-luckyDraw("Joe").then((res)=>console.log(res)).then(()=>luckyDraw("Caroline")).then((res)=>console.log(res)).then(()=>luckyDraw("Sabrina")).then((res)=>console.log(res)).catch(error=>console.error(error.message));
+async function getResults(names) {
+  const results = await Promise.allSettled(names.map(name=>luckyDraw(name)));
+  results.forEach(r=> console.log(r.status === "rejected" ? r.reason.message : r.value));
+}
+
+getResults(names);
