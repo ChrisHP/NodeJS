@@ -10,7 +10,8 @@ const setupDB = async () => {
         drop table if exists planets;
         create table planets (
             id serial not null primary key,
-            name text not null
+            name text not null,
+            image text
         );
     `);
   await db.none(`insert into planets (name) values ('Earth')`);
@@ -67,4 +68,12 @@ const deletePlanetByID=async (id: number): Promise<string> =>{
     console.log(planets);
   return "Planet deleted";
 }
-export { getPlanets, getPlanetByID, addPlanet, updatePlanet, deletePlanetByID };
+const addImage = async (id: number, fileName: string): Promise<string> => {
+
+  await db.none(`update planets set image=$1 where id=$2`, [fileName,id]);
+  const planets = await db.manyOrNone(`select * from planets`);
+
+  console.log(planets);
+  return "Planet updated";
+};
+export { getPlanets, getPlanetByID, addPlanet, updatePlanet, deletePlanetByID , addImage};

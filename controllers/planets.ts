@@ -1,4 +1,4 @@
-import {getPlanets,getPlanetByID,addPlanet,updatePlanet,deletePlanetByID} from '../repository/Planets.js';
+import {getPlanets,getPlanetByID,addPlanet,updatePlanet,deletePlanetByID, addImage} from '../repository/Planets.js';
 import { Request,Response } from 'express';
 import { Planet } from '../models/Planet.js';
 const getAll =async(req:Request,res:Response)=>{
@@ -27,8 +27,22 @@ const deleteById=async(req:Request,res:Response)=>{
     const msg=await deletePlanetByID(Number(id));
     res.status(200).json({msg});
 }
+const createImage= async(req:Request,res:Response)=>{
+    const {id}= req.params;
+    const fileName=req.file?.path;
+    if(fileName){
+        const msg= await addImage(Number(id),fileName);
+        console.log(req.file);
+        res.status(201).json({msg});
+    }
+    else{
+        res.status(400).json({msg:"failed to upload"});
+    }
+
+
+}
 export {getAll,
     getOneById,
     create,
     updateById,
-    deleteById}
+    deleteById, createImage}
