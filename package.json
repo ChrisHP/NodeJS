@@ -5,12 +5,13 @@
     "node": ">=18"
   },
   "scripts": {
-    "dev": "tsc-watch --noClear -p ./tsconfig.json --outDir ./dist --onSuccess \"node ./dist/server.js\""
+    "dev": "tsc-watch --noClear -p ./tsconfig.json --outDir ./dist --onSuccess \"node ./dist/src/server.js\""
   },
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
+    "joi": "^17.12.3",
     "morgan": "^1.10.0",
     "types": "^0.1.1"
   },
