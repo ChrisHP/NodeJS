@@ -1,29 +1,30 @@
 import {getPlanets,getPlanetByID,addPlanet,updatePlanet,deletePlanetByID} from '../repository/Planets.js';
 import { Request,Response } from 'express';
 import { Planet } from '../models/Planet.js';
-const getAll =(req:Request,res:Response)=>{
-    res.status(200).json(getPlanets())
+const getAll =async(req:Request,res:Response)=>{
+    const planets=await getPlanets()
+    res.status(200).json(planets)
 }
-const getOneById= (req:Request,res:Response)=>{
+const getOneById= async (req:Request,res:Response)=>{
     const {id} =req.params;
-    const planet=getPlanetByID(Number(id));
+    const planet=await getPlanetByID(Number(id));
     res.status(200).json(planet)
 }
-const create=(req:Request,res:Response)=>{
+const create= async(req:Request,res:Response)=>{
     const {name}=req.body;
     const newPlanet:Partial<Planet>={name};
-    const msg=addPlanet(newPlanet);
+    const msg=await addPlanet(newPlanet);
     res.status(201).json({msg});
 }
-const updateById=(req:Request,res:Response)=>{
+const updateById=async(req:Request,res:Response)=>{
     const {id}=req.params;
     const {name}=req.body;
-    const msg=updatePlanet(Number(id),name)
+    const msg=await updatePlanet(Number(id),name)
     res.status(200).json({msg});
 }
-const deleteById=(req:Request,res:Response)=>{
+const deleteById=async(req:Request,res:Response)=>{
     const {id}=req.params;
-    const msg=deletePlanetByID(Number(id));
+    const msg=await deletePlanetByID(Number(id));
     res.status(200).json({msg});
 }
 export {getAll,
